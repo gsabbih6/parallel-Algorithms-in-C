@@ -1,10 +1,10 @@
-##Brief introduction to Parallel Programming
+## Brief introduction to Parallel Programming
 
 First of all Parallel programming is not the same as sequenntial programming common to most programming languages. However there exist several tools and libraries out there to make it a bit easy when one practices well enough or unless you are a total complete genuis. POSIX, OpenMP, MPI etc. This very tutorial will cover the POSIX *(our beloved pthreads)*
 
 I am writinng this tutorial as way to reteach myself these concepts again ( nothing personal) since I will need this in Phd qualification and oral exams so if you find some mistakes feel free to initiate a pull request. Also refer to this [free book](https://bitbucket.org/VictorEijkhout/hpc-book-and-course/src/default/) by [Professor Victor Eijkhout](https://pages.tacc.utexas.edu/~eijkhout/) of University of Texas. he has other free and very educative resource materials as well.
 
-##Pthread Programming with Pthreads
+## Pthread Programming with Pthreads
 
 Pthread archieve parallelism based on the Fork/Join machanism that basically means to spawn as many threads as prefered and then when the thread are done their 'thing' join them and return some data or just simple terminated it. Our example below is an assignment from [UTC](www.utc.edu) given by [Dr.Tannis](https://www.utc.edu/college-engineering-computer-science/profiles/computer-science-engineering/faculty/wyk255.php) *(check him out cool and supersmart guy he taught all this)*
 
