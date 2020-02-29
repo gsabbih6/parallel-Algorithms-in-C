@@ -1,0 +1,71 @@
+Question:
+
+What can you say about the strong scaling of your program when run on 1 thread, 2 threads, one thread for each physical core on your system (not hyperthreads),and twice that amount.
+
+Answer:
+My system properties:  2 GHz Dual-Core Intel Core i5
+
+Strong scaling implies a near perfect or perfect speedup in proportion to the increase of processors. As seen from the output of the program in the attached output.txt file, strong scaling could not be archieved on the my system. Infact is appear to be reversed, the more threads I use the slower the results are computed. I believe this is because of the time is takes to swithing access to the global variables for more threads as compared to a few. Thus a single thread tends to be faster.
+
+
+
+
+Appendix:
+
+Out put from terminal
+
+(base) MacBook-Pro:5260_hw3 admin$ time ./a.out 
+Creating 1 threads...
+Thread creation completed
+signal sent to the master thread
+wait signal received, condition was met
+Program used a total of 1 thread(s) and completed in 40379.885000ms. 
+
+real	0m41.371s
+user	0m40.281s
+sys	0m0.102s
+(base) MacBook-Pro:5260_hw3 admin$ gcc -Wall -O3 hw3_pthread.c 
+(base) MacBook-Pro:5260_hw3 admin$ time ./a.out 
+Creating 2 threads...
+Thread creation completed
+wait signal received, condition was met
+signal sent to the master thread
+Program used a total of 2 thread(s) and completed in 43220.495000ms. 
+
+real	0m22.688s
+user	0m43.118s
+sys	0m0.106s
+(base) MacBook-Pro:5260_hw3 admin$ gcc -Wall -O3 hw3_pthread.c 
+(base) MacBook-Pro:5260_hw3 admin$ time ./a.out 
+Creating 10 threads...
+Thread creation completed
+signal sent to the master thread
+wait signal received, condition was met
+Program used a total of 10 thread(s) and completed in 47864.060000ms. 
+
+real	0m13.864s
+user	0m47.752s
+sys	0m0.115s
+(base) MacBook-Pro:5260_hw3 admin$ gcc -Wall -O3 hw3_pthread.c 
+(base) MacBook-Pro:5260_hw3 admin$ time ./a.out 
+Creating 50 threads...
+Thread creation completed
+wait signal received, condition was met
+signal sent to the master thread
+Program used a total of 50 thread(s) and completed in 87243.795000ms. 
+
+real	0m24.846s
+user	1m27.023s
+sys	0m0.224s
+(base) MacBook-Pro:5260_hw3 admin$ gcc -Wall -O3 hw3_pthread.c 
+(base) MacBook-Pro:5260_hw3 admin$ time ./a.out 
+Creating 100 threads...
+Thread creation completed
+signal sent to the master thread
+wait signal received, condition was met
+Program used a total of 100 thread(s) and completed in 185539.164000ms. 
+
+real	0m50.983s
+user	3m5.226s
+sys	0m0.316s
+(base) MacBook-Pro:5260_hw3 admin$ 

@@ -1,0 +1,108 @@
+(base) MacBook-Pro:5260_hw2 admin$ gcc -Wall -O3 hw2_pthread.c
+(base) MacBook-Pro:5260_hw2 admin$ ./a.out 
+Creating 100 threads...
+Thread creation completed
+Threads are now searching for primes by brute force...
+Here’s the output of my program with 100 threads and MAX_TRIES set to 10 :
+
+thread 0 reports no prime
+thread 1 reports no prime
+thread 2 reports that 3522323927 is prime
+thread 3 reports no prime
+thread 4 reports that 3652604687 is prime
+thread 5 reports no prime
+thread 6 reports no prime
+thread 7 reports that 4217132021 is prime
+thread 8 reports no prime
+thread 9 reports no prime
+thread 10 reports no prime
+thread 11 reports no prime
+thread 12 reports no prime
+thread 13 reports no prime
+thread 14 reports no prime
+thread 15 reports that 3999858013 is prime
+thread 16 reports no prime
+thread 17 reports no prime
+thread 18 reports that 7268809753 is prime
+thread 19 reports that 9064868797 is prime
+thread 20 reports no prime
+thread 21 reports no prime
+thread 22 reports that 6054516857 is prime
+thread 23 reports no prime
+thread 24 reports that 2447633491 is prime
+thread 25 reports that 5680110049 is prime
+thread 26 reports no prime
+thread 27 reports that 8718967267 is prime
+thread 28 reports that 1655401739 is prime
+thread 29 reports no prime
+thread 30 reports no prime
+thread 31 reports that 7865476237 is prime
+thread 32 reports that 5488192597 is prime
+thread 33 reports no prime
+thread 34 reports that 6317534317 is prime
+thread 35 reports no prime
+thread 36 reports no prime
+thread 37 reports that 8898296801 is prime
+thread 38 reports no prime
+thread 39 reports no prime
+thread 40 reports no prime
+thread 41 reports that 1164346459 is prime
+thread 42 reports that 5211151007 is prime
+thread 43 reports no prime
+thread 44 reports no prime
+thread 45 reports that 2465233721 is prime
+thread 46 reports no prime
+thread 47 reports no prime
+thread 48 reports that 1120459243 is prime
+thread 49 reports that 338091547 is prime
+thread 50 reports that 8504799679 is prime
+thread 51 reports that 5495723969 is prime
+thread 52 reports no prime
+thread 53 reports no prime
+thread 54 reports that 8378906563 is prime
+thread 55 reports that 328572967 is prime
+thread 56 reports no prime
+thread 57 reports that 4620381853 is prime
+thread 58 reports no prime
+thread 59 reports no prime
+thread 60 reports that 1252256053 is prime
+thread 61 reports that 2021138003 is prime
+thread 62 reports no prime
+thread 63 reports that 6837479359 is prime
+thread 64 reports no prime
+thread 65 reports no prime
+thread 66 reports no prime
+thread 67 reports no prime
+thread 68 reports that 7838151647 is prime
+thread 69 reports that 4153204597 is prime
+thread 70 reports that 4160202367 is prime
+thread 71 reports no prime
+thread 72 reports no prime
+thread 73 reports that 3792897721 is prime
+thread 74 reports no prime
+thread 75 reports no prime
+thread 76 reports no prime
+thread 77 reports no prime
+thread 78 reports no prime
+thread 79 reports that 8148227141 is prime
+thread 80 reports that 4293593987 is prime
+thread 81 reports no prime
+thread 82 reports no prime
+thread 83 reports no prime
+thread 84 reports no prime
+thread 85 reports no prime
+thread 86 reports no prime
+thread 87 reports that 7446839531 is prime
+thread 88 reports that 3229171009 is prime
+thread 89 reports that 3851390357 is prime
+thread 90 reports that 5025200669 is prime
+thread 91 reports that 2516446193 is prime
+thread 92 reports no prime
+thread 93 reports no prime
+thread 94 reports no prime
+thread 95 reports no prime
+thread 96 reports that 1177064453 is prime
+thread 97 reports that 8527427417 is prime
+thread 98 reports that 8651338999 is prime
+thread 99 reports that 5019337859 is prime
+(base) MacBook-Pro:5260_hw2 admin$ 

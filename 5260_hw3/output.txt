@@ -1,0 +1,22 @@
+(base) MacBook-Pro:5260_hw3 admin$ gcc -Wall -O3 hw3_pthread.c 
+(base) MacBook-Pro:5260_hw3 admin$ time ./a.out 
+Creating 3 threads...
+Thread creation completed
+signal sent to the master thread
+wait signal received, condition was met
+389629
+1996507
+1905733
+823499
+4225457
+4544509
+427951
+4153753
+2318153
+7011049
+Program used a total of 3 thread(s) and completed in 515.304000ms. 
+
+real	0m0.427s
+user	0m0.515s
+sys	0m0.003s
+(base) MacBook-Pro:5260_hw3 admin$ 
