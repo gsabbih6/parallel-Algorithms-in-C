@@ -5,21 +5,23 @@
 #include <gmp.h>
 #include <stdlib.h>
 
-#define N 2
+//#define N 200000
+//
+////int N =2;ßß
+//#define Tn 5 //actually N+1
+//#define K 10 // order of precision for the use with GMP
 
-//int N =2;ßß
-#define Tn 1200 //actually N+1
-#define K 10 // order of precision for the use with GMP
 
-
-int main(int argc, char *argv[])
-{
-    printf("started%d\n",1);
+int main(int argc, char *argv[]){
+    
+    int N=400;
+    int Tn=1200;
      double time_s = omp_get_wtime();
     
-    int Numt=omp_get_num_threads();
+    int Numt=omp_get_max_threads();
+     printf("Threads sum = %d\n",Numt);
     mpf_t tempv[Numt];
-    mpf_t sum[Numt];
+    mpf_t sum[2*Numt];
     mpf_t  X;//=malloc(Tn*sizeof(mpf_t));
     mpf_t  Y;//=malloc(Tn*sizeof(mpf_t));
     mpf_t  Z;//=malloc(Tn*sizeof(mpf_t));
@@ -42,24 +44,34 @@ int main(int argc, char *argv[])
     mpf_t c;
     mpf_t count;
     
-    mpf_t* x=(mpf_t *) malloc(N*sizeof(mpf_t));
-    mpf_t* y=(mpf_t *) malloc(N*sizeof(mpf_t));
-    mpf_t* z=(mpf_t *) malloc(N*sizeof(mpf_t));
+    mpf_t x[N+1];
+    mpf_t y[N+1];
+    mpf_t z[N+1];
+    mpf_init(R);mpf_init(Sigma);mpf_init(timestep);mpf_init(b);mpf_init(R);mpf_init(tpow);mpf_init(x_red);mpf_init(X);mpf_init(y_red);mpf_init(Y);mpf_init(z_red);mpf_init(Z);mpf_init(s1);mpf_init(s2);mpf_init(temp);
     
-    mpf_inits(R,Sigma,timestep,b,tpow,x_red,X,y_red,Y,z_red,Z,s1,s2,temp,c,count,tempv,sum,divs);
+    mpf_init(c);
+    mpf_init(count);
     
-    printf("completed s%d\n",1);
+    for (int i = 0; i <(2*Numt); ++i){
+        mpf_init(sum[i]);
+    }
+    for (int i = 0; i <Numt; ++i){
+    mpf_init(tempv[i]);
+    }
+    
+    
+    mpf_init(divs);
+    
      for (int i = 0; i <N; ++i)
      {
-         mpf_init2(x[i],K);
-         mpf_init2(y[i],K);
-         mpf_init2(z[i],K);
+         mpf_init(x[i]);
+         mpf_init(y[i]);
+         mpf_init(z[i]);
      }
     mpf_set_d(R,28);
     mpf_set_d(Sigma,10);
     mpf_set_d(b,8/3);
     mpf_set_d(timestep,0.01);
-    printf("initialised  completed %d\n",1);
     
     //  set initial conditions where at time, t=0;
      mpf_set_d(X, - 15.8);
@@ -71,33 +83,18 @@ int main(int argc, char *argv[])
      {
 
          mpf_set(x[0], X);
-//         x[0]=X[t-1];
          mpf_set(y[0], Y);
-//         y[0]=Y[t-1];
-         mpf_set(z[0], Z);
-//         z[0]=Z[t-1];
-        printf("hi %d\n",t);
+         mpf_set(z[0],Z);
         for (int i = 0; i<N; i++)
         {
-            //printf("hi %d\n", i);
-                 // mpf_set_d(s1,0.00);
-                 // mpf_set_d(s2,0.00);
-
             #pragma omp parallel private(k,tid)
             {
                 tid = omp_get_thread_num();
+//                printf("hi %d\n",tid);
 
                 #pragma omp for
                 for (k=0; k<=i; k++)
                 {
-                // s1=s1+x[i-k]*z[k];
-//                 mpf_mul(temp,x[i-k],z[k]);
-                // // gmp_printf("temp is %Ff\n",temp);
-//                 mpf_add(s1,s1,temp);
-                // // s2=s2+x[i-k]*y[k];
-//                 mpf_mul(temp,x[i-k],y[k]);
-//                 mpf_add(s2,s2,temp);
-                
                     mpf_mul(tempv[tid],x[i-k],z[k]);
                     mpf_add(sum[2*tid],sum[2*tid],tempv[tid]);
                     mpf_mul(tempv[tid],x[i-k],y[k]);
@@ -106,7 +103,7 @@ int main(int argc, char *argv[])
 
             }
             
-            for (j=0; j<Numt; j++)
+            for (j=0; j<Numt; j++)// maual reduction
             {
             mpf_add(s1,s1,sum[2*j]);
             mpf_add(s2,s2,sum[2*j+1]);
@@ -114,12 +111,11 @@ int main(int argc, char *argv[])
             
             
             // compute the
-            mpf_set_ui(c,1.0);
-            mpf_set_ui(count,i+1);
+            mpf_set_d(c,1.0);
+            mpf_set_d(count,i+1.0);
 
 
             mpf_div(divs ,c,count);
-
             mpf_sub(temp,y[i],x[i]);
             mpf_mul(temp,temp,divs);
             mpf_mul(x[i+1],temp,Sigma);
@@ -138,38 +134,28 @@ int main(int argc, char *argv[])
         for(int i=0;i<N;i++){
 
             mpf_pow_ui(tpow,timestep,i);
-            // gmp_printf("tau is %Ff\n",t);
-
-            // x_red=x_red+(x[i]*t);
             mpf_mul(temp,x[i],tpow);
             mpf_add(x_red,x_red,temp);
 
-            // y_red=y_red+(y[i]*t);
             mpf_mul(temp,y[i],tpow);
             mpf_add(y_red,y_red,temp);
 
-            // z_red=z_red+(z[i]*t);
             mpf_mul(temp,z[i],tpow);
             mpf_add(z_red,z_red,temp);
 
-            // mpf_clears(timestep,tpow);
         }
 
 
-    // double X=x[0]+x_red;
     mpf_add(X,X,x_red);
-    // double Y=x[0]+(y_red);
     mpf_add(Y,Y,y_red);
-    // double Z=[0]+(z_red);
     mpf_add(Z,Z,z_red);
-    printf("completed%d\n",t);
 
     }
 
 
-     gmp_printf("X at t = %d is %.5Ff\n",t,X);
-     gmp_printf("Y t = %d is %.5Ff\n",t,Y);
-     gmp_printf("Z t = %d is %.5Ff\n",t,Z);
+//     gmp_printf("X at t = %d is %.5Ff\n",Tn,X);
+//     gmp_printf("Y t = %d is %.5Ff\n",Tn,Y);
+//     gmp_printf("Z t = %d is %.5Ff\n",Tn,Z);
      time_s = omp_get_wtime()-time_s;
      printf("Time elapsed is %fsecs\n", time_s);
 
